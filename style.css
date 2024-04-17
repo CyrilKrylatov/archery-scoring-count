@@ -1,0 +1,75 @@
+/* ----------------------------------------------------------
+   Reset
+   ------------------------------------------------------- */
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+
+button {
+    display: inline-block;
+    border: none;
+    text-align: center;
+    font-weight: inherit;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+/* ----------------------------------------------------------
+   Layout style
+   ------------------------------------------------------- */
+
+body {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    color: #000;
+    background: #fff;
+    height: 100vh;
+    height: 100svh;
+    display: flex;
+
+}
+
+main {
+    display: grid;
+    flex-grow: 1;
+}
+
+/* ----------------------------------------------------------
+   Scoring
+   ------------------------------------------------------- */
+
+.btn-scoring {
+    display: block; 
+    width: 100%;
+}
+
+.btn-scoring + .btn-scoring {
+    border-top: 1px currentColor solid;
+}
+
+.btn-scoring[data-color="white"] {
+    background: rgb(255,255,255);
+}
+
+.btn-scoring[data-color="black"] {
+    background: rgb(0,0,0);
+    color: #FFF;
+}
+
+.btn-scoring[data-color="blue"] {
+    background: rgb(65,167,173);
+}
+
+.btn-scoring[data-color="red"] {
+    background: rgb(248,31,36);
+}
+
+.btn-scoring[data-color="yellow"] {
+    background: rgb(254,245,76);
+}
