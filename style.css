@@ -25,6 +25,17 @@ button {
    Layout style
    ------------------------------------------------------- */
 
+:root {
+    --transition-delay: 200ms;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --transition-delay: 0;
+    }
+}
+
 body {
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
     color: #000;
@@ -45,12 +56,17 @@ main {
    ------------------------------------------------------- */
 
 .btn-scoring {
-    display: block; 
+    display: block;
     width: 100%;
+    transition: opacity var(--transition-delay) ease;
 }
 
 .btn-scoring + .btn-scoring {
     border-top: 1px currentColor solid;
+}
+
+.btn-scoring:focus {
+    opacity: .5;
 }
 
 .btn-scoring[data-color="white"] {
