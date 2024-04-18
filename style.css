@@ -1,7 +1,6 @@
 /* ----------------------------------------------------------
    Reset
    ------------------------------------------------------- */
-
 body,
 html {
     margin: 0;
@@ -29,21 +28,19 @@ button {
     --transition-delay: 200ms;
 }
 
-
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion:reduce) {
     :root {
         --transition-delay: 0;
     }
 }
 
 body {
+    display: flex;
+    height: 100vh;
+    height: 100svh;
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
     color: #000;
     background: #fff;
-    height: 100vh;
-    height: 100svh;
-    display: flex;
-
 }
 
 main {
@@ -74,8 +71,8 @@ main {
 }
 
 .btn-scoring[data-color="black"] {
-    background: rgb(0,0,0);
     color: #FFF;
+    background: rgb(0,0,0);
 }
 
 .btn-scoring[data-color="blue"] {
