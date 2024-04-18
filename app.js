@@ -2,6 +2,11 @@ document.addEventListener('click', ({ target }) => {
     if (target.closest('button').classList.contains('js-score')) {
         updateTotal(target)
     }
+
+    if (target.closest('button').classList.contains('js-reset')) {
+        reset()
+    }
+
 })
 
 /**
@@ -19,4 +24,12 @@ function updateTotal (target) {
     const score = Number(target.getAttribute('data-score'))
     const actualScore = Number(totalElement.textContent)
     totalElement.textContent = score + actualScore
+}
+
+/**
+ * Reset total score
+ */
+
+function reset () {
+    totalElement.textContent = '0'
 }
