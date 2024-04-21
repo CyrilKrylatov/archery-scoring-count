@@ -19,6 +19,7 @@ button {
     vertical-align: middle;
     cursor: pointer;
     color: inherit;
+    font-size: inherit;
 }
 
 /* ----------------------------------------------------------
