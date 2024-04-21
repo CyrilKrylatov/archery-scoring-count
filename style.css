@@ -37,16 +37,24 @@ button {
 
 body {
     display: flex;
-    height: 100vh;
-    height: 100svh;
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
     color: #000;
     background: #fff;
+    flex-direction: column;
 }
 
 main {
     display: grid;
     flex-grow: 1;
+    height: 100vh;
+    height: 100svh;
+}
+
+footer p {
+    margin: 0;
+    padding: .5rem;
+    font-style: italic;
+    text-align: center;
 }
 
 /* ----------------------------------------------------------
