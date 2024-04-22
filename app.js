@@ -1,6 +1,7 @@
 document.addEventListener('click', ({ target }) => {
     if (target.closest('button').classList.contains('js-score')) {
         updateTotal(target)
+        addHint(target)
     }
 
     if (target.closest('button').classList.contains('js-reset')) {
@@ -32,4 +33,13 @@ function updateTotal (target) {
 
 function reset () {
     totalElement.textContent = '0'
+}
+
+/**
+ * Add number of hint inside the button
+ * @param {Object} button
+ */
+
+function addHint (button) {
+    button.setAttribute('data-hint-count', '1')
 }

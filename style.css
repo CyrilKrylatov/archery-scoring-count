@@ -42,6 +42,7 @@ body {
     color: #000;
     background: #fff;
     flex-direction: column;
+    padding: 2px;
 }
 
 main {
@@ -63,6 +64,7 @@ footer p {
    ------------------------------------------------------- */
 
 .btn-scoring {
+    opacity: .5;
     display: block;
     width: 100%;
     transition: opacity var(--transition-delay) ease;
@@ -72,8 +74,15 @@ footer p {
     border-top: 1px currentColor solid;
 }
 
-.btn-scoring:focus {
-    opacity: .5;
+.btn-scoring[data-hint-count] {
+    opacity: 1;
+}
+
+.btn-scoring:focus,
+.btn-scoring:active {
+    z-index: 1;
+    outline: 2px auto Highlight;
+    outline: 2px auto -webkit-focus-ring-color;
 }
 
 .btn-scoring[data-color="white"] {
