@@ -65,9 +65,11 @@ footer p {
 
 .btn-scoring {
     opacity: .5;
+    user-select: none;
     display: block;
     width: 100%;
     transition: opacity var(--transition-delay) ease;
+    position: relative;
 }
 
 .btn-scoring + .btn-scoring {
@@ -76,6 +78,15 @@ footer p {
 
 .btn-scoring[data-hint-count] {
     opacity: 1;
+}
+
+.btn-scoring[data-hint-count]:after {
+    content: attr(data-hint-count) " arrows here";
+    position: absolute;
+    font-size: .8em;
+    font-style: italic;
+    right: .6em;
+    bottom: .6em;
 }
 
 .btn-scoring:focus,

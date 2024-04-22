@@ -34,11 +34,14 @@ function updateTotal (target) {
 }
 
 /**
- * Reset total score
+ * Reset elements
  */
 
 function reset () {
     totalElement.textContent = '0'
+    document.querySelectorAll('[data-hint-count]').forEach(button => {
+        button.removeAttribute('data-hint-count')
+    })
 }
 
 /**
@@ -47,5 +50,10 @@ function reset () {
  */
 
 function addHint (button) {
-    button.setAttribute('data-hint-count', '1')
+    const hints = button.getAttribute('data-hint-count')
+    if (!hints) {
+        button.setAttribute('data-hint-count', '1')
+        return
+    }
+    button.setAttribute('data-hint-count', Number(hints) + 1)
 }
