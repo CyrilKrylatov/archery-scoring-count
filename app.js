@@ -1,3 +1,10 @@
+/**
+ * Enable :active pseudo-element on iOS
+ * {@link https://stackoverflow.com/a/12686281}
+ */
+
+document.addEventListener('touchstart', () => {}, true)
+
 document.addEventListener('click', ({ target }) => {
     if (target.closest('button').classList.contains('js-score')) {
         updateTotal(target)
@@ -7,7 +14,6 @@ document.addEventListener('click', ({ target }) => {
     if (target.closest('button').classList.contains('js-reset')) {
         reset()
     }
-
 })
 
 /**
