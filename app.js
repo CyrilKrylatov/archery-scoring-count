@@ -8,6 +8,7 @@ document.addEventListener('touchstart', () => {}, true)
 document.addEventListener('click', ({ target }) => {
     if (target.closest('button').classList.contains('js-score')) {
         updateTotal(target)
+        setActive(target)
         addHint(target)
     }
 
@@ -45,15 +46,24 @@ function reset () {
 }
 
 /**
+ * Mark button as active
+ * @param {Object} button
+ */
+
+function setActive (button) {
+    button.setAttribute('data-active', 'true')
+}
+
+/**
  * Add number of hint inside the button
  * @param {Object} button
  */
 
 function addHint (button) {
-    const hints = button.getAttribute('data-hint-count')
-    if (!hints) {
-        button.setAttribute('data-hint-count', '1')
+    const hintsElements = button.querySelector('span')
+    if (!hintsElements) {
         return
     }
-    button.setAttribute('data-hint-count', Number(hints) + 1)
+    const hint = hintsElements.textContent.trim()
+    hintsElements.textContent = Number(hint) + 1
 }

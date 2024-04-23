@@ -21,6 +21,7 @@ button {
     vertical-align: middle;
     color: inherit;
     cursor: pointer;
+    font-variant-numeric: tabular-nums;
 }
 
 /* ----------------------------------------------------------
@@ -77,17 +78,8 @@ footer p {
     border-top: 1px currentColor solid;
 }
 
-.btn-scoring[data-hint-count] {
+.btn-scoring[data-active] {
     opacity: 1;
-}
-
-.btn-scoring[data-hint-count]:after {
-    content: attr(data-hint-count) " arrows here";
-    position: absolute;
-    right: .6em;
-    bottom: .6em;
-    font-size: .8em;
-    font-style: italic;
 }
 
 .btn-scoring:focus,
