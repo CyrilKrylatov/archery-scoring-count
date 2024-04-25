@@ -1,11 +1,12 @@
 document.addEventListener('click', ({ target }) => {
-    if (target.closest('button').classList.contains('js-score')) {
-        updateTotal(target)
-        setActive(target)
-        addHint(target)
+    const button = target.closest('button')
+    if (button.classList.contains('js-score')) {
+        updateTotal(button)
+        setActive(button)
+        addHint(button)
     }
 
-    if (target.closest('button').classList.contains('js-reset')) {
+    if (button.classList.contains('js-reset')) {
         reset()
     }
 })
@@ -15,6 +16,15 @@ document.addEventListener('click', ({ target }) => {
  */
 
 const totalElement = document.querySelector('.js-total')
+
+/**
+ * Wording
+ */
+
+const wording = {
+    arrow: '{number} arrow',
+    arrows: '{number} arrows'
+}
 
 /**
  * Update total with the score stored within the data-score attribute
@@ -35,7 +45,7 @@ function reset () {
     totalElement.textContent = '0'
     document.querySelectorAll('[data-active]').forEach(button => {
         button.removeAttribute('data-active')
-        button.querySelector('span').textContent = '0'
+        button.querySelector('span').textContent = wording.arrow.replace('{number}', '0')
     })
 }
 
@@ -54,10 +64,12 @@ function setActive (button) {
  */
 
 function addHint (button) {
+    button.dataset.count = Number(button.dataset.count) + 1
     const hintsElements = button.querySelector('span')
     if (!hintsElements) {
         return
     }
-    const hint = hintsElements.textContent.trim()
-    hintsElements.textContent = Number(hint) + 1
+    const count = button.dataset.count
+    const dictionnary = count < 2 ? wording.arrow : wording.arrows
+    hintsElements.textContent = dictionnary.replace('{number}', count)
 }
