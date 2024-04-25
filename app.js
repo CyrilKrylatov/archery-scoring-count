@@ -7,6 +7,7 @@ document.addEventListener('click', ({ target }) => {
     }
 
     if (button.classList.contains('js-reset')) {
+        save()
         reset()
     }
 })
@@ -27,6 +28,12 @@ const wording = {
 }
 
 /**
+ * History
+ */
+
+const history = []
+
+/**
  * Update total with the score stored within the data-score attribute
  * @param {Object} target
  */
@@ -35,18 +42,6 @@ function updateTotal (target) {
     const score = Number(target.getAttribute('data-score'))
     const actualScore = Number(totalElement.textContent)
     totalElement.textContent = score + actualScore
-}
-
-/**
- * Reset elements
- */
-
-function reset () {
-    totalElement.textContent = '0'
-    document.querySelectorAll('[data-active]').forEach(button => {
-        button.removeAttribute('data-active')
-        button.querySelector('span').textContent = wording.arrow.replace('{number}', '0')
-    })
 }
 
 /**
@@ -72,4 +67,38 @@ function addHint (button) {
     const count = button.dataset.count
     const dictionnary = count < 2 ? wording.arrow : wording.arrows
     hintsElements.textContent = dictionnary.replace('{number}', count)
+}
+
+/**
+ * Reset elements
+ */
+
+function reset () {
+    totalElement.textContent = '0'
+    document.querySelectorAll('[data-active]').forEach(button => {
+        button.removeAttribute('data-active')
+        button.dataset.count = '0'
+        button.querySelector('span').textContent = wording.arrow.replace('{number}', '0')
+    })
+}
+
+/**
+ * Save to history
+ */
+
+function save () {
+    const scoringButtons = document.querySelectorAll('.js-score')
+    const score = []
+    scoringButtons.forEach(button => {
+        if (button.dataset.count === '0') {
+            return
+        }
+        for (let i = 0; i < Number(button.dataset.count); i++) {
+            score.push(button.dataset.score)
+        }
+    })
+    history.push({
+        date: new Date().toLocaleDateString(),
+        scores: score
+    })
 }
