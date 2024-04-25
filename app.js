@@ -40,8 +40,9 @@ function updateTotal (target) {
 
 function reset () {
     totalElement.textContent = '0'
-    document.querySelectorAll('[data-hint-count]').forEach(button => {
-        button.removeAttribute('data-hint-count')
+    document.querySelectorAll('[data-active]').forEach(button => {
+        button.removeAttribute('data-active')
+        button.querySelector('span').textContent = '0'
     })
 }
 
