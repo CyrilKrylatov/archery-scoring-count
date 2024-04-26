@@ -12,6 +12,8 @@ document.addEventListener('click', ({ target }) => {
     }
 })
 
+initLocalHistory()
+
 /**
  * Common elements
  */
@@ -28,10 +30,17 @@ const wording = {
 }
 
 /**
- * History
+ * Init local history
  */
 
-const history = []
+let localHistory = initLocalHistory()
+
+function initLocalHistory () {
+    if (!localStorage.getItem('archeryhistory')) {
+        localStorage.setItem('archeryhistory', JSON.stringify([]))
+    }
+    return JSON.parse(localStorage.getItem('archeryhistory'))
+}
 
 /**
  * Update total with the score stored within the data-score attribute
@@ -89,16 +98,17 @@ function reset () {
 function save () {
     const scoringButtons = document.querySelectorAll('.js-score')
     const score = []
-    scoringButtons.forEach(button => {
-        if (button.dataset.count === '0') {
+    scoringButtons.forEach(({ dataset }) => {
+        if (dataset.count === '0') {
             return
         }
-        for (let i = 0; i < Number(button.dataset.count); i++) {
-            score.push(button.dataset.score)
+        for (let i = 0; i < Number(dataset.count); i++) {
+            score.push(dataset.score)
         }
     })
-    history.push({
+    localHistory.push({
         date: new Date().toLocaleDateString(),
         scores: score
     })
+    localStorage.setItem('archeryhistory', JSON.stringify(localHistory))
 }
