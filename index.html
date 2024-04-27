@@ -29,9 +29,16 @@
         <button type="button" class="btn-scoring js-score" data-count="0" data-color="yellow" data-score="10"><span>0 arrow</span> × 10 points</button>
         <button type="button" class="btn-total js-reset">Total : <span class="js-total">0</span><br />Click to save & reset</button>
     </main>
+    <aside class="js-aside"></aside>
     <footer>
       <p>Made with ♥ by <a href="https://github.com/CyrilKrylatov">Cyril Krylatov</a>.</p>
     </footer>
+    <template id="history-template">
+      <details>
+        <summary>{date}</summary>
+        <p>{score}</p>
+      </details>
+    </template>
     <script src="app.js"></script>
   </body>
 </html>

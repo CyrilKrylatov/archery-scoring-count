@@ -1,5 +1,26 @@
+/**
+ * Common elements
+ */
+
+const totalElement = document.querySelector('.js-total')
+const asideElement = document.querySelector('.js-aside')
+const localHistory = initLocalHistory()
+
+/**
+ * Wording
+ */
+
+const wording = {
+  arrow: '{number} arrow',
+  arrows: '{number} arrows'
+}
+
 document.addEventListener('click', ({ target }) => {
   const button = target.closest('button')
+  if (!button) {
+    return
+  }
+
   if (button.classList.contains('js-score')) {
     updateTotal(button)
     setActive(button)
@@ -13,27 +34,7 @@ document.addEventListener('click', ({ target }) => {
 })
 
 initLocalHistory()
-
-/**
- * Common elements
- */
-
-const totalElement = document.querySelector('.js-total')
-
-/**
- * Wording
- */
-
-const wording = {
-  arrow: '{number} arrow',
-  arrows: '{number} arrows'
-}
-
-/**
- * Init local history
- */
-
-const localHistory = initLocalHistory()
+build()
 
 function initLocalHistory () {
   if (!window.localStorage.getItem('archeryhistory')) {
@@ -115,8 +116,16 @@ function save () {
 
 /**
  * Build history
+ * {@link https://kittygiraudel.com/2022/09/30/templating-in-html/}
  */
 
 function build () {
+  const template = document.getElementById('history-template')
+  localHistory.reverse().forEach(({ date, scores }) => {
+    const content = template.content.cloneNode(true)
 
+    content.querySelector('summary').textContent = date
+    content.querySelector('p').textContent = scores.reverse().toString().replaceAll(',', ', ')
+    asideElement.append(content)
+  })
 }
