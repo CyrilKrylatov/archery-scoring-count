@@ -1,15 +1,15 @@
 document.addEventListener('click', ({ target }) => {
-    const button = target.closest('button')
-    if (button.classList.contains('js-score')) {
-        updateTotal(button)
-        setActive(button)
-        addHint(button)
-    }
+  const button = target.closest('button')
+  if (button.classList.contains('js-score')) {
+    updateTotal(button)
+    setActive(button)
+    addHint(button)
+  }
 
-    if (button.classList.contains('js-reset')) {
-        save()
-        reset()
-    }
+  if (button.classList.contains('js-reset')) {
+    save()
+    reset()
+  }
 })
 
 initLocalHistory()
@@ -25,21 +25,21 @@ const totalElement = document.querySelector('.js-total')
  */
 
 const wording = {
-    arrow: '{number} arrow',
-    arrows: '{number} arrows'
+  arrow: '{number} arrow',
+  arrows: '{number} arrows'
 }
 
 /**
  * Init local history
  */
 
-let localHistory = initLocalHistory()
+const localHistory = initLocalHistory()
 
 function initLocalHistory () {
-    if (!localStorage.getItem('archeryhistory')) {
-        localStorage.setItem('archeryhistory', JSON.stringify([]))
-    }
-    return JSON.parse(localStorage.getItem('archeryhistory'))
+  if (!window.localStorage.getItem('archeryhistory')) {
+    window.localStorage.setItem('archeryhistory', JSON.stringify([]))
+  }
+  return JSON.parse(window.localStorage.getItem('archeryhistory'))
 }
 
 /**
@@ -48,9 +48,9 @@ function initLocalHistory () {
  */
 
 function updateTotal (target) {
-    const score = Number(target.getAttribute('data-score'))
-    const actualScore = Number(totalElement.textContent)
-    totalElement.textContent = score + actualScore
+  const score = Number(target.getAttribute('data-score'))
+  const actualScore = Number(totalElement.textContent)
+  totalElement.textContent = score + actualScore
 }
 
 /**
@@ -59,7 +59,7 @@ function updateTotal (target) {
  */
 
 function setActive (button) {
-    button.setAttribute('data-active', 'true')
+  button.setAttribute('data-active', 'true')
 }
 
 /**
@@ -68,14 +68,14 @@ function setActive (button) {
  */
 
 function addHint (button) {
-    button.dataset.count = Number(button.dataset.count) + 1
-    const hintsElements = button.querySelector('span')
-    if (!hintsElements) {
-        return
-    }
-    const count = button.dataset.count
-    const dictionnary = count < 2 ? wording.arrow : wording.arrows
-    hintsElements.textContent = dictionnary.replace('{number}', count)
+  button.dataset.count = Number(button.dataset.count) + 1
+  const hintsElements = button.querySelector('span')
+  if (!hintsElements) {
+    return
+  }
+  const count = button.dataset.count
+  const dictionnary = count < 2 ? wording.arrow : wording.arrows
+  hintsElements.textContent = dictionnary.replace('{number}', count)
 }
 
 /**
@@ -83,12 +83,12 @@ function addHint (button) {
  */
 
 function reset () {
-    totalElement.textContent = '0'
-    document.querySelectorAll('[data-active]').forEach(button => {
-        button.removeAttribute('data-active')
-        button.dataset.count = '0'
-        button.querySelector('span').textContent = wording.arrow.replace('{number}', '0')
-    })
+  totalElement.textContent = '0'
+  document.querySelectorAll('[data-active]').forEach(button => {
+    button.removeAttribute('data-active')
+    button.dataset.count = '0'
+    button.querySelector('span').textContent = wording.arrow.replace('{number}', '0')
+  })
 }
 
 /**
@@ -96,19 +96,27 @@ function reset () {
  */
 
 function save () {
-    const scoringButtons = document.querySelectorAll('.js-score')
-    const score = []
-    scoringButtons.forEach(({ dataset }) => {
-        if (dataset.count === '0') {
-            return
-        }
-        for (let i = 0; i < Number(dataset.count); i++) {
-            score.push(dataset.score)
-        }
-    })
-    localHistory.push({
-        date: new Date().toLocaleDateString(),
-        scores: score
-    })
-    localStorage.setItem('archeryhistory', JSON.stringify(localHistory))
+  const scoringButtons = document.querySelectorAll('.js-score')
+  const score = []
+  scoringButtons.forEach(({ dataset }) => {
+    if (dataset.count === '0') {
+      return
+    }
+    for (let i = 0; i < Number(dataset.count); i++) {
+      score.push(dataset.score)
+    }
+  })
+  localHistory.push({
+    date: new Date().toLocaleDateString(),
+    scores: score
+  })
+  window.localStorage.setItem('archeryhistory', JSON.stringify(localHistory))
+}
+
+/**
+ * Build history
+ */
+
+function build () {
+
 }
