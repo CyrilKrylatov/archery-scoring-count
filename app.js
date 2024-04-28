@@ -1,9 +1,10 @@
 /**
- * Common elements
+ * Common variables
  */
 
 const totalElement = document.querySelector('.js-total')
 const asideElement = document.querySelector('.js-aside')
+const tbodyElement = asideElement.querySelector('tbody')
 const localHistory = initLocalHistory()
 
 /**
@@ -29,6 +30,7 @@ document.addEventListener('click', ({ target }) => {
 
   if (button.classList.contains('js-reset')) {
     save()
+    build()
     reset()
   }
 })
@@ -120,12 +122,14 @@ function save () {
  */
 
 function build () {
+  asideElement.hidden = localHistory.length === 0
+  tbodyElement.replaceChildren()
   const template = document.getElementById('history-template')
   localHistory.reverse().forEach(({ date, scores }) => {
     const content = template.content.cloneNode(true)
-
-    content.querySelector('summary').textContent = date
-    content.querySelector('p').textContent = scores.reverse().toString().replaceAll(',', ', ')
-    asideElement.append(content)
+    const tdElements = content.querySelectorAll('td')
+    tdElements[0].textContent = date
+    tdElements[1].textContent = scores.reverse().toString().replaceAll(',', ', ')
+    tbodyElement.append(content)
   })
 }
