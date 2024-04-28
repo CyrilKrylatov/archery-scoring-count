@@ -6,6 +6,7 @@ const totalElement = document.querySelector('.js-total')
 const asideElement = document.querySelector('.js-aside')
 const tbodyElement = asideElement.querySelector('tbody')
 const localHistory = JSON.parse(window.localStorage.getItem('archeryhistory')) || []
+const templateElement = document.getElementById('history-template')
 
 /**
  * Wording
@@ -120,9 +121,8 @@ function build () {
 
   asideElement.hidden = localHistory.length === 0
   tbodyElement.replaceChildren()
-  const template = document.getElementById('history-template')
   localHistory.reverse().forEach(({ date, scores }) => {
-    const content = template.content.cloneNode(true)
+    const content = templateElement.content.cloneNode(true)
     const tdElements = content.querySelectorAll('td')
     tdElements[0].textContent = date
     tdElements[1].textContent = scores.reverse().toString().replaceAll(',', ', ')
