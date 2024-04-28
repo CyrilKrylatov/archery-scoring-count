@@ -5,7 +5,7 @@
 const totalElement = document.querySelector('.js-total')
 const asideElement = document.querySelector('.js-aside')
 const tbodyElement = asideElement.querySelector('tbody')
-const localHistory = initLocalHistory()
+const localHistory = JSON.parse(window.localStorage.getItem('archeryhistory')) || []
 
 /**
  * Wording
@@ -35,15 +35,7 @@ document.addEventListener('click', ({ target }) => {
   }
 })
 
-initLocalHistory()
 build()
-
-function initLocalHistory () {
-  if (!window.localStorage.getItem('archeryhistory')) {
-    window.localStorage.setItem('archeryhistory', JSON.stringify([]))
-  }
-  return JSON.parse(window.localStorage.getItem('archeryhistory'))
-}
 
 /**
  * Update total with the score stored within the data-score attribute
@@ -122,6 +114,10 @@ function save () {
  */
 
 function build () {
+  if (localHistory.length === 0) {
+    return
+  }
+
   asideElement.hidden = localHistory.length === 0
   tbodyElement.replaceChildren()
   const template = document.getElementById('history-template')
