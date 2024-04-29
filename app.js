@@ -1,11 +1,30 @@
 /**
+ * A module to handle operations related to local storage for 'archeryhistory'.
+ */
+
+const handleLocalStorage = {
+  /**
+   * Retrieves the archery history from local storage.
+   * @returns {Array} The parsed archery history array from local storage or an empty array if nothing is found.
+   */
+  get: () => JSON.parse(window.localStorage.getItem('archeryhistory')) || [],
+
+  /**
+   * Saves the archery history to local storage.
+   */
+  set: () => {
+    window.localStorage.setItem('archeryhistory', JSON.stringify(localHistory))
+  }
+}
+
+/**
  * Common variables
  */
 
 const totalElement = document.querySelector('.js-total')
 const asideElement = document.querySelector('.js-aside')
 const tbodyElement = asideElement.querySelector('tbody')
-const localHistory = JSON.parse(window.localStorage.getItem('archeryhistory')) || []
+const localHistory = handleLocalStorage.get()
 const templateElement = document.getElementById('history-template')
 
 /**
@@ -104,7 +123,7 @@ function saveHistory () {
     date: new Date().toLocaleDateString(),
     scores: score
   })
-  window.localStorage.setItem('archeryhistory', JSON.stringify(localHistory))
+  handleLocalStorage.set()
 }
 
 /**
