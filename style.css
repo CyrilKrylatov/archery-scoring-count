@@ -4,24 +4,24 @@
 
 body,
 html {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font: inherit;
-    font-size: 100%;
-    vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
 }
 
 button {
-    display: inline-block;
-    border: none;
-    text-align: center;
-    font-size: inherit;
-    font-weight: inherit;
-    vertical-align: middle;
-    color: inherit;
-    cursor: pointer;
-    font-variant-numeric: tabular-nums;
+  display: inline-block;
+  border: none;
+  text-align: center;
+  font-size: inherit;
+  font-weight: inherit;
+  vertical-align: middle;
+  color: inherit;
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ----------------------------------------------------------
@@ -29,36 +29,36 @@ button {
    ------------------------------------------------------- */
 
 :root {
-    --transition-delay: 200ms;
+  --transition-delay: 200ms;
 }
 
 @media (prefers-reduced-motion:reduce) {
-    :root {
-        --transition-delay: 0;
-    }
+  :root {
+    --transition-delay: 0;
+  }
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    padding: 2px;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-    color: #000;
-    background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 2px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  color: #000;
+  background: #fff;
 }
 
 main {
-    display: grid;
-    flex-grow: 1;
-    height: 100vh;
-    height: 100svh;
+  display: grid;
+  flex-grow: 1;
+  height: 100vh;
+  height: 100svh;
 }
 
 footer p {
-    margin: 0;
-    padding: .5rem;
-    text-align: center;
-    font-style: italic;
+  margin: 0;
+  padding: .5rem;
+  text-align: center;
+  font-style: italic;
 }
 
 /* ----------------------------------------------------------
@@ -66,46 +66,63 @@ footer p {
    ------------------------------------------------------- */
 
 .btn-scoring {
-    display: block;
-    position: relative;
-    width: 100%;
-    opacity: .5;
-    transition: opacity var(--transition-delay) ease;
-    user-select: none;
+  display: block;
+  position: relative;
+  width: 100%;
+  opacity: .5;
+  transition: opacity var(--transition-delay) ease;
+  user-select: none;
 }
 
-.btn-scoring + .btn-scoring {
-    border-top: 1px currentColor solid;
+.btn-scoring+.btn-scoring {
+  border-top: 1px currentColor solid;
 }
 
 .btn-scoring[data-active] {
-    opacity: 1;
+  opacity: 1;
 }
 
 .btn-scoring:focus,
 .btn-scoring:active {
-    z-index: 1;
-    outline: 2px auto Highlight;
-    -webkit-tap-highlight-color: Highlight;
+  z-index: 1;
+  outline: 2px auto Highlight;
+  -webkit-tap-highlight-color: Highlight;
 }
 
 .btn-scoring[data-color="white"] {
-    background: rgb(255,255,255);
+  background: rgb(255, 255, 255);
 }
 
 .btn-scoring[data-color="black"] {
-    color: #FFF;
-    background: rgb(0,0,0);
+  color: #FFF;
+  background: rgb(0, 0, 0);
 }
 
 .btn-scoring[data-color="blue"] {
-    background: rgb(65,167,173);
+  background: rgb(65, 167, 173);
 }
 
 .btn-scoring[data-color="red"] {
-    background: rgb(248,31,36);
+  background: rgb(248, 31, 36);
 }
 
 .btn-scoring[data-color="yellow"] {
-    background: rgb(254,245,76);
+  background: rgb(254, 245, 76);
+}
+
+/* ----------------------------------------------------------
+   History
+   ------------------------------------------------------- */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table td {
+  padding: .5rem .5rem;
+}
+
+table tr + tr td {
+  border-top: 1px lightgray solid;
 }

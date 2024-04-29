@@ -1,52 +1,69 @@
-document.addEventListener('click', ({ target }) => {
-    const button = target.closest('button')
-    if (button.classList.contains('js-score')) {
-        updateTotal(button)
-        setActive(button)
-        addHint(button)
-    }
+/**
+ * A module to handle operations related to local storage for 'archeryhistory'.
+ */
 
-    if (button.classList.contains('js-reset')) {
-        reset()
-    }
-})
+const handleLocalStorage = {
+  /**
+   * Retrieves the archery history from local storage.
+   * @returns {Array} The parsed archery history array from local storage or an empty array if nothing is found.
+   */
+  get: () => JSON.parse(window.localStorage.getItem('archeryhistory')) || [],
+
+  /**
+   * Saves the archery history to local storage.
+   */
+  set: () => {
+    window.localStorage.setItem('archeryhistory', JSON.stringify(localHistory))
+  }
+}
 
 /**
- * Common elements
+ * Common variables
  */
 
 const totalElement = document.querySelector('.js-total')
+const asideElement = document.querySelector('.js-aside')
+const tbodyElement = asideElement.querySelector('tbody')
+const localHistory = handleLocalStorage.get()
+const templateElement = document.getElementById('history-template')
 
 /**
  * Wording
  */
 
 const wording = {
-    arrow: '{number} arrow',
-    arrows: '{number} arrows'
+  arrow: '{number} arrow',
+  arrows: '{number} arrows'
 }
+
+document.addEventListener('click', ({ target }) => {
+  const button = target.closest('button')
+  if (!button) {
+    return
+  }
+
+  if (button.classList.contains('js-score')) {
+    updateTotal(button)
+    setActive(button)
+    addHint(button)
+  }
+
+  if (button.classList.contains('js-reset')) {
+    saveHistory()
+    buildHistory()
+    reset()
+  }
+})
+
+buildHistory()
 
 /**
  * Update total with the score stored within the data-score attribute
- * @param {Object} target
+ * @param {Object} dataset
  */
 
-function updateTotal (target) {
-    const score = Number(target.getAttribute('data-score'))
-    const actualScore = Number(totalElement.textContent)
-    totalElement.textContent = score + actualScore
-}
-
-/**
- * Reset elements
- */
-
-function reset () {
-    totalElement.textContent = '0'
-    document.querySelectorAll('[data-active]').forEach(button => {
-        button.removeAttribute('data-active')
-        button.querySelector('span').textContent = wording.arrow.replace('{number}', '0')
-    })
+function updateTotal ({ dataset }) {
+  totalElement.textContent = Number(dataset.score) + Number(totalElement.textContent)
 }
 
 /**
@@ -55,7 +72,7 @@ function reset () {
  */
 
 function setActive (button) {
-    button.setAttribute('data-active', 'true')
+  button.setAttribute('data-active', 'true')
 }
 
 /**
@@ -64,12 +81,68 @@ function setActive (button) {
  */
 
 function addHint (button) {
-    button.dataset.count = Number(button.dataset.count) + 1
-    const hintsElements = button.querySelector('span')
-    if (!hintsElements) {
-        return
+  button.dataset.count = Number(button.dataset.count) + 1
+  const hintsElements = button.querySelector('span')
+  if (!hintsElements) {
+    return
+  }
+  const count = button.dataset.count
+  const dictionnary = count < 2 ? wording.arrow : wording.arrows
+  hintsElements.textContent = dictionnary.replace('{number}', count)
+}
+
+/**
+ * Reset elements
+ */
+
+function reset () {
+  totalElement.textContent = '0'
+  document.querySelectorAll('[data-active]').forEach(button => {
+    button.removeAttribute('data-active')
+    button.dataset.count = '0'
+    button.querySelector('span').textContent = wording.arrow.replace('{number}', '0')
+  })
+}
+
+/**
+ * Save to history
+ */
+
+function saveHistory () {
+  const scoringButtons = document.querySelectorAll('.js-score')
+  const score = []
+  scoringButtons.forEach(({ dataset }) => {
+    if (dataset.count === '0') {
+      return
     }
-    const count = button.dataset.count
-    const dictionnary = count < 2 ? wording.arrow : wording.arrows
-    hintsElements.textContent = dictionnary.replace('{number}', count)
+    for (let i = 0; i < Number(dataset.count); i++) {
+      score.push(dataset.score)
+    }
+  })
+  localHistory.push({
+    date: new Date().toLocaleDateString(),
+    scores: score
+  })
+  handleLocalStorage.set()
+}
+
+/**
+ * Build history
+ * {@link https://kittygiraudel.com/2022/09/30/templating-in-html/}
+ */
+
+function buildHistory () {
+  if (localHistory.length === 0) {
+    return
+  }
+
+  asideElement.hidden = localHistory.length === 0
+  tbodyElement.replaceChildren()
+  localHistory.reverse().forEach(({ date, scores }) => {
+    const content = templateElement.content.cloneNode(true)
+    const tdElements = content.querySelectorAll('td')
+    tdElements[0].textContent = date
+    tdElements[1].textContent = scores.reverse().toString().replaceAll(',', ', ')
+    tbodyElement.append(content)
+  })
 }
