@@ -40,13 +40,11 @@ build()
 
 /**
  * Update total with the score stored within the data-score attribute
- * @param {Object} target
+ * @param {Object} dataset
  */
 
-function updateTotal (target) {
-  const score = Number(target.getAttribute('data-score'))
-  const actualScore = Number(totalElement.textContent)
-  totalElement.textContent = score + actualScore
+function updateTotal ({ dataset }) {
+  totalElement.textContent = Number(dataset.score) + Number(totalElement.textContent)
 }
 
 /**
