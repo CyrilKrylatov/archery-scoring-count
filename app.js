@@ -30,13 +30,13 @@ document.addEventListener('click', ({ target }) => {
   }
 
   if (button.classList.contains('js-reset')) {
-    save()
-    build()
+    saveHistory()
+    buildHistory()
     reset()
   }
 })
 
-build()
+buildHistory()
 
 /**
  * Update total with the score stored within the data-score attribute
@@ -89,7 +89,7 @@ function reset () {
  * Save to history
  */
 
-function save () {
+function saveHistory () {
   const scoringButtons = document.querySelectorAll('.js-score')
   const score = []
   scoringButtons.forEach(({ dataset }) => {
@@ -112,7 +112,7 @@ function save () {
  * {@link https://kittygiraudel.com/2022/09/30/templating-in-html/}
  */
 
-function build () {
+function buildHistory () {
   if (localHistory.length === 0) {
     return
   }
